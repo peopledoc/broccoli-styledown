@@ -8,7 +8,7 @@
     "debug": "^2.2.0",
     "lodash.merge": "^4.3.3",
     "rsvp": "^3.1.0",
-    "styledown": "^1.0.2",
+    "styledown": "./../styledown",
     "walk-sync": "^0.2.0"
   },
   "devDependencies": {

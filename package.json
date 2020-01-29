@@ -6,13 +6,11 @@
   "dependencies": {
     "broccoli-caching-writer": "^2.2.1",
     "debug": "^2.2.0",
-    "lodash.merge": "^4.3.3",
-    "rsvp": "^3.1.0",
     "styledown": "./../styledown",
     "walk-sync": "^0.2.0"
   },
   "devDependencies": {
-    "broccoli": "^0.16.7",
+    "broccoli": "^3.2.0",
     "broccoli-cli": "^1.0.0",
     "mocha": "^7.0.0"
   },

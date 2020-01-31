@@ -5,9 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "broccoli-caching-writer": "^2.2.1",
-    "debug": "^2.2.0",
-    "styledown": "./../styledown",
-    "walk-sync": "^0.2.0"
+    "styledown": "git+https://github.com/KamiKillertO/styledown.git#v1.1.0",
+    "walk-sync": "^2.0.0"
   },
   "devDependencies": {
     "broccoli": "^3.2.0",

@@ -36,7 +36,12 @@ class StyledownCompiler extends Plugin {
     this.configMd = options.configMd || 'config.md';
     this.destFile = options.destFile || 'index.html';
     this.styledownOpts = options.styledown || {};
-    this.onBuildError = options.onBuildError;
+    if (options.onBuildError) {
+      if (typeof options.onBuildError !== "function") {
+        throw new TypeError('Option onBuildError should be a function')
+      }
+      this.onBuildError = options.onBuildError;
+    }
   }
 
   async build() {

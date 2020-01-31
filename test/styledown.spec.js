@@ -9,29 +9,20 @@ function getPath(fileName) {
 
 describe('Styledown compiler', function() {
 
-  it('should write styledown html', function() {
+  it('should write styledown html', async function() {
     let tree = builder(['./test/fixtures/valid'], {
       configMd: 'config.md',
       destFile: 'index.html'
     });
 
-    return tree.build()
-      .then(function() {
-        var promises = [
-          fs.readFileSync(getPath('expected/index.html'), { encoding: 'utf8' }),
-          fs.readFileSync(tree.outputPath + '/index.html', { encoding: 'utf8' })
-        ];
+    await tree.build()
+    let expected = fs.readFileSync(getPath('expected/index.html'), { encoding: 'utf8' });
+    let result = fs.readFileSync(tree.outputPath + '/index.html', { encoding: 'utf8' });
+  
 
-        return Promise.all(promises);
-      })
-      .then(function(results) {
-        var expected = results[0].trim();
-        var result = results[1].trim();
-
-        assert.ok(expected, 'expected exists');
-        assert.ok(result, 'generated exists');
-        assert.equal(expected, result, 'matches expected');
-      });
+    assert.ok(expected, 'expected exists');
+    assert.ok(result, 'generated exists');
+    assert.equal(expected.trim(), result.trim(), 'matches expected');
   });
 
   it('Build should fail when passing errored files to Styledown', function() {
@@ -55,5 +46,17 @@ describe('Styledown compiler', function() {
       }
     });
     tree.build().catch(() => {})
+  })
+
+  it('Throw an error when "onBuildError" option is not a function', function() {
+
+    assert.throws(
+      () => builder(['./test/fixtures/valid'], {
+        configMd: 'config.md',
+        destFile: 'index.html',
+        onBuildError: 'foo'
+      }),
+      new TypeError('Option onBuildError should be a function')
+    );
   })
 });

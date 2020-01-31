@@ -6,17 +6,19 @@
   "dependencies": {
     "broccoli-caching-writer": "^2.2.1",
     "styledown": "git+https://github.com/KamiKillertO/styledown.git#v1.1.0",
-    "walk-sync": "^2.0.0"
+    "walk-sync": "^0.2.0"
   },
   "devDependencies": {
     "broccoli": "^3.2.0",
     "broccoli-cli": "^1.0.0",
     "mocha": "^7.0.0"
   },
+  "engines": {
+    "node": ">8"
+  },
   "scripts": {
     "build": "rm -rf build && broccoli build build",
-    "test": "mocha test/*.spec.js --reporter spec",
-    "test:debug": "mocha debug test/*.spec.js --reporter spec"
+    "test": "mocha test/*.spec.js --reporter spec"
   },
   "keywords": [
     "broccoli-plugin",

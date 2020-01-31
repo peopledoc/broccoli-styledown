@@ -4,7 +4,6 @@ var Styledown = require('styledown');
 var CachingWriter = require('broccoli-caching-writer'); // Can be done "manually", see https://broccoli.build/plugins.html#caching
 const Plugin = require('broccoli-plugin');
 var walkSync = require('walk-sync');
-var debug = require('debug')('broccoli-styledown');
 
 var FS_OPTIONS = { encoding: 'utf8' };
 var EXTENSIONS = '(less|css|sass|scss|styl)';
@@ -18,11 +17,9 @@ function getPath(srcPath, fileName) {
 function checkFileExists(path) {
   try {
     if (!fs.statSync(path).isFile()) {
-      debug('Path is not a file');
       return false;
     }
   } catch(err) {
-    debug('File not found', path);
     return false;
   }
 
@@ -75,7 +72,6 @@ class StyledownCompiler extends Plugin {
    */
   getSourceFileData(srcPath) {
     var configMd = this.configMd;
-    debug('srcPath', srcPath);
 
     var filePaths = walkSync(srcPath).filter(function(fileName) {
       if (fileName.match(WHITELIST_REGEXP)) {
@@ -87,7 +83,7 @@ class StyledownCompiler extends Plugin {
 
     var filePathsMd = walkSync(srcPath).filter(function(fileName) {
       if (fileName !== configMd && fileName.match(MD_REGEXP)) {
-        debug('detected markdown', fileName);
+      .filter((fileName) => (fileName !== this.configMd && fileName.match(MD_REGEXP)));
         return true;
       }
 

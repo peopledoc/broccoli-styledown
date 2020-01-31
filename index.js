@@ -30,12 +30,13 @@ class StyledownCompiler extends Plugin {
     options = options || {};
     options.persistentOutput = false;
     options.needsCache = true;
-    options.name = options.name || 'StyledownCompiler';
+    options.name = options.displayName ? `StyledownCompiler - ${options.displayName}` : 'StyledownCompiler';
     super(inputNode, options);
   
     this.configMd = options.configMd || 'config.md';
     this.destFile = options.destFile || 'index.html';
     this.styledownOpts = options.styledown || {};
+    this.onBuildError = options.onBuildError;
   }
 
   async build() {
@@ -51,9 +52,13 @@ class StyledownCompiler extends Plugin {
       let html = Styledown.parse(sourceData, this.styledownOpts);
       return fs.writeFileSync(outputFile, html, FS_OPTIONS);
     } catch (error) {
-      console.error(`Styledown failed to create the file ${this.destFile}.`)
-      console.info('Files used: ')
-      sourceData.forEach(({ name }) => console.info(`  - ${name}`))
+      if (this.onBuildError) {
+        this.onBuildError(
+          error, {
+            destFile: this.destFile,
+            inputPaths: sourceData.map(({ name }) => name)
+          })
+      }
       throw error
     }
   }

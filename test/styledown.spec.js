@@ -34,16 +34,26 @@ describe('Styledown compiler', function() {
       });
   });
 
-  it('Build should fail when passing errored files to Styledown', async function() {
+  it('Build should fail when passing errored files to Styledown', function() {
 
     let tree = builder(['./test/fixtures/invalid'], {
       configMd: 'config.md',
       destFile: 'index.html'
     });
-    try {
-      await tree.build()
-    } catch(error) {
-      assert.ok(true, 'The build fail')
-    }
+    assert.rejects(tree.build());
+  })
+
+  it('Provide buildError hook that is called on build error', function(done) {
+    let tree = builder(['./test/fixtures/invalid'], {
+      configMd: 'config.md',
+      destFile: 'index.html',
+      onBuildError(error, infos) {
+        assert.ok(true, 'onBuildError is called')
+        assert.equal(infos.destFile, 'index.html')
+        assert.ok(infos.inputPaths)
+        done();
+      }
+    });
+    tree.build().catch(() => {})
   })
 });

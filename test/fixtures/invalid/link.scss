@@ -1,0 +1,11 @@
+/**
+  * Css class with an example containing invalid Pug
+ *
+ *     @example
+ *     ul
+ *     - each val, index in {10:90, 20:80, 25:75, 30:70, 40:60, 50:50}
+ *       li.Link val
+  */
+.link {
+  color: blue;
+}

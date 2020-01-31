@@ -8,22 +8,15 @@ function getPath(fileName) {
 }
 
 describe('Styledown compiler', function() {
-  var tree;
-
-  afterEach(function() {
-    if (tree) {
-      tree.cleanup();
-    }
-  });
 
   it('should write styledown html', function() {
-    tree = builder(['./test'], {
+    let tree = builder(['./test/fixtures/valid'], {
       configMd: 'config.md',
       destFile: 'index.html'
     });
 
     return tree.build()
-      .then(function(result) {
+      .then(function() {
         var promises = [
           fs.readFileSync(getPath('expected/index.html'), { encoding: 'utf8' }),
           fs.readFileSync(tree.outputPath + '/index.html', { encoding: 'utf8' })
@@ -40,4 +33,17 @@ describe('Styledown compiler', function() {
         assert.equal(expected, result, 'matches expected');
       });
   });
+
+  it('Build should fail when passing errored files to Styledown', async function() {
+
+    let tree = builder(['./test/fixtures/invalid'], {
+      configMd: 'config.md',
+      destFile: 'index.html'
+    });
+    try {
+      await tree.build()
+    } catch(error) {
+      assert.ok(true, 'The build fail')
+    }
+  })
 });

@@ -49,7 +49,6 @@ class StyledownCompiler extends Plugin {
     try {
 
       let html = Styledown.parse(sourceData, this.styledownOpts);
-
       return fs.writeFileSync(outputFile, html, FS_OPTIONS);
     } catch (error) {
       console.error(`Styledown failed to create the file ${this.destFile}.`)

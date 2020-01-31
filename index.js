@@ -1,14 +1,14 @@
-var fs = require('fs');
-var path = require('path');
-var Styledown = require('styledown');
-var CachingWriter = require('broccoli-caching-writer'); // Can be done "manually", see https://broccoli.build/plugins.html#caching
+const fs = require('fs');
+const path = require('path');
+const Styledown = require('styledown');
+const CachingWriter = require('broccoli-caching-writer'); // Can be done "manually", see https://broccoli.build/plugins.html#caching
 const Plugin = require('broccoli-plugin');
-var walkSync = require('walk-sync');
+const walkSync = require('walk-sync');
 
-var FS_OPTIONS = { encoding: 'utf8' };
-var EXTENSIONS = '(less|css|sass|scss|styl)';
-var WHITELIST_REGEXP = new RegExp('\.' + EXTENSIONS + '$');
-var MD_REGEXP = new RegExp('\.md$');
+const FS_OPTIONS = { encoding: 'utf8' };
+const EXTENSIONS = '(less|css|sass|scss|styl)';
+const WHITELIST_REGEXP = new RegExp('\.' + EXTENSIONS + '$');
+const MD_REGEXP = new RegExp('\.md$');
 
 function getPath(srcPath, fileName) {
   return path.join(srcPath, fileName);
@@ -30,38 +30,33 @@ class StyledownCompiler extends Plugin {
     options = options || {};
     options.persistentOutput = false;
     options.needsCache = true;
-    options.name = 'StyledownCompiler';
+    options.name = options.name || 'StyledownCompiler';
     super(inputNode, options);
   
-    this.options = options;
     this.configMd = options.configMd || 'config.md';
     this.destFile = options.destFile || 'index.html';
-    this.styledown = options.styledown || {};
+    this.styledownOpts = options.styledown || {};
   }
 
-  build() {
-  
-    var styledownOpts = this.styledown || {};
-    var destFile = this.destFile;
-    var outputPath = this.outputPath;
-  
-    var srcDataPromises = this.inputPaths.map(function(inputPath) {
-      return this.getSourceFileData(inputPath);
-    }, this);
-  
-    return Promise.all(srcDataPromises).then(function(srcDataArrays) {
-      // Combine file data arrays from all inputPaths
-      var srcData = srcDataArrays.reduce(function(result, srcDataArray) {
-        return result.concat(srcDataArray);
-      }, []);
-  
-      var html = Styledown.parse(srcData, styledownOpts);
-  
-      return fs.writeFileSync(path.join(outputPath, destFile), html, FS_OPTIONS);
-    })
-    .catch(function(err) {
-      debug(err);
-    });
+  async build() {
+
+    let extractDataPromises = this.inputPaths.map(inputPath => this.getSourceFileData(inputPath));
+    let outputFile = path.join(this.outputPath, this.destFile)
+    let sourceData = await Promise.all(extractDataPromises);
+      
+    // Combine file data arrays from all inputPaths
+    sourceData = sourceData.reduce((result, data) => result.concat(data), []);
+    try {
+
+      let html = Styledown.parse(sourceData, this.styledownOpts);
+
+      return fs.writeFileSync(outputFile, html, FS_OPTIONS);
+    } catch (error) {
+      console.error(`Styledown failed to create the file ${this.destFile}.`)
+      console.info('Files used: ')
+      sourceData.forEach(({ name }) => console.info(`  - ${name}`))
+      throw error
+    }
   }
 
   /**
@@ -71,9 +66,8 @@ class StyledownCompiler extends Plugin {
    * @return {Promise} Array of all files [{ name: 'fileName', data: String }]
    */
   getSourceFileData(srcPath) {
-    var configMd = this.configMd;
 
-    var filePaths = walkSync(srcPath).filter(function(fileName) {
+    let filePaths = walkSync(srcPath).filter(function(fileName) {
       if (fileName.match(WHITELIST_REGEXP)) {
         return true;
       }
@@ -81,42 +75,35 @@ class StyledownCompiler extends Plugin {
       return false;
     });
 
-    var filePathsMd = walkSync(srcPath).filter(function(fileName) {
-      if (fileName !== configMd && fileName.match(MD_REGEXP)) {
+    // Todo: Use sort
+    let filePathsMd = walkSync(srcPath)
       .filter((fileName) => (fileName !== this.configMd && fileName.match(MD_REGEXP)));
-        return true;
-      }
-
-      return false;
-    });
 
     // For some reason, Styledown chokes if the md files comes before any
     // of the CSS files
     filePaths = filePaths.concat(filePathsMd);
 
     // If available, add configMd at the end of the list
-    if (configMd) {
-      var configPath = getPath(srcPath, configMd);
-      var configExists = checkFileExists(configPath);
+    if (this.configMd) {
+      let configPath = getPath(srcPath, this.configMd);
+      let configExists = checkFileExists(configPath);
 
       if (configExists) {
-        debug('Config file found', configPath);
-        filePaths = filePaths.concat(configMd);
+        filePaths = filePaths.concat(this.configMd);
       }
     }
 
+    try {
 
-    let readPromises = filePaths.map(function(filePath) {
-      let data = fs.readFileSync(getPath(srcPath, filePath), FS_OPTIONS)
-      return { name: filePath, data: data };
-    });
-
-    return Promise.all(readPromises)
-      .catch(function(err) {
-        console.log('Error reading source file data');
-        console.error(err);
-        throw(err);
-      });
+      return filePaths.map((filePath) => ({
+        data: fs.readFileSync(getPath(srcPath, filePath), FS_OPTIONS),
+        name: filePath
+      }));
+    } catch(err) {
+      console.log('Error reading source file data');
+      console.error(err);
+      throw(err);
+    }
   };
 
 }

@@ -4,7 +4,7 @@
   "description": "Broccoli plugin for creating styledown html from css markup",
   "main": "index.js",
   "dependencies": {
-    "broccoli-caching-writer": "^2.2.1",
+    "fs-tree-diff": "^2.0.1",
     "styledown": "git+https://github.com/KamiKillertO/styledown.git#v1.1.0",
     "walk-sync": "^2.0.0"
   },

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const Styledown = require('styledown');
-const CachingWriter = require('broccoli-caching-writer'); // Can be done "manually", see https://broccoli.build/plugins.html#caching
 const Plugin = require('broccoli-plugin');
 const walkSync = require('walk-sync');
+const FSTree = require('fs-tree-diff');
 
 const FS_OPTIONS = { encoding: 'utf8' };
 const EXTENSIONS = '(less|css|sass|scss|styl)';
@@ -28,7 +28,7 @@ function checkFileExists(path) {
 class StyledownCompiler extends Plugin {
   constructor (inputNode, options) {
     options = options || {};
-    options.persistentOutput = false;
+    options.persistentOutput = true;
     options.needsCache = true;
     options.name = options.displayName ? `StyledownCompiler - ${options.displayName}` : 'StyledownCompiler';
     super(inputNode, options);
@@ -42,9 +42,27 @@ class StyledownCompiler extends Plugin {
       }
       this.onBuildError = options.onBuildError;
     }
+    this._cached = [];
+  }
+  _hasChanged() {
+    let changed = false;
+    for (let inputPath of this.inputPaths) {
+      const current = FSTree.fromEntries(walkSync.entries(inputPath));
+      const patch = current.calculatePatch(this._cached[inputPath] || []);
+      this._cached[inputPath] = current;
+
+      if (patch.length) {
+        changed = true;
+      }
+    }
+
+    return changed;
   }
 
   async build() {
+    if (!this._hasChanged()) {
+      return;
+    }
 
     let extractDataPromises = this.inputPaths.map(inputPath => this.getSourceFileData(inputPath));
     let outputFile = path.join(this.outputPath, this.destFile)

@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "fs-tree-diff": "^2.0.1",
-    "styledown": "git+https://github.com/KamiKillertO/styledown.git#v1.1.0",
+    "styledown": "github:peopledoc/styledown.git#v1.1.0",
     "walk-sync": "^2.0.0"
   },
   "devDependencies": {

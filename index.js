@@ -1,30 +1,13 @@
-const fs = require('fs');
-const path = require('path');
 const Styledown = require('styledown');
 const Plugin = require('broccoli-plugin');
 const walkSync = require('walk-sync');
 const FSTree = require('fs-tree-diff');
 
 const FS_OPTIONS = { encoding: 'utf8' };
-const EXTENSIONS = '(less|css|sass|scss|styl)';
-const WHITELIST_REGEXP = new RegExp('\.' + EXTENSIONS + '$');
-const MD_REGEXP = new RegExp('\.md$');
+const EXTENSIONS = ['less', 'css', 'sass', 'scss', 'styl'];
+const WHITELIST_GLOB_REGEXP = `**/*.{${EXTENSIONS.join(',')}}`;
 
-function getPath(srcPath, fileName) {
-  return path.join(srcPath, fileName);
-}
 
-function checkFileExists(path) {
-  try {
-    if (!fs.statSync(path).isFile()) {
-      return false;
-    }
-  } catch(err) {
-    return false;
-  }
-
-  return true;
-}
 class StyledownCompiler extends Plugin {
   constructor (inputNode, options) {
     options = options || {};
@@ -32,7 +15,7 @@ class StyledownCompiler extends Plugin {
     options.needsCache = true;
     options.name = options.displayName ? `StyledownCompiler - ${options.displayName}` : 'StyledownCompiler';
     super(inputNode, options);
-  
+
     this.configMd = options.configMd || 'config.md';
     this.destFile = options.destFile || 'index.html';
     this.styledownOpts = options.styledown || {};
@@ -60,26 +43,20 @@ class StyledownCompiler extends Plugin {
   }
 
   async build() {
-    if (!this._hasChanged()) {
+    if (!this._hasChanged()) { // do this for each transformations
       return;
     }
-
-    let extractDataPromises = this.inputPaths.map(inputPath => this.getSourceFileData(inputPath));
-    let outputFile = path.join(this.outputPath, this.destFile)
-    let sourceData = await Promise.all(extractDataPromises);
-      
-    // Combine file data arrays from all inputPaths
-    sourceData = sourceData.reduce((result, data) => result.concat(data), []);
+    let sourceFileData = this.getSourceFileData()
+    let sourceData = sourceFileData.reduce((result, data) => result.concat(data), []);
     try {
-
       let html = Styledown.parse(sourceData, this.styledownOpts);
-      return fs.writeFileSync(outputFile, html, FS_OPTIONS);
+      return this.output.writeFileSync(this.destFile, html, FS_OPTIONS);
     } catch (error) {
       if (this.onBuildError) {
         this.onBuildError(
           error, {
             destFile: this.destFile,
-            inputPaths: sourceData.map(({ name }) => name)
+            inputPaths: sourceFileData.map(({ name }) => name)
           })
       }
       throw error
@@ -89,41 +66,29 @@ class StyledownCompiler extends Plugin {
   /**
    * Get all data for files in srcPath.
    *
-   * @param {String} srcPath Path to read for files
    * @return {Promise} Array of all files [{ name: 'fileName', data: String }]
    */
-  getSourceFileData(srcPath) {
+  getSourceFileData() {
 
-    let filePaths = walkSync(srcPath).filter(function(fileName) {
-      if (fileName.match(WHITELIST_REGEXP)) {
-        return true;
-      }
+    let filePaths = this.input.entries('', { globs: [WHITELIST_GLOB_REGEXP]})
+      .map(file => file.relativePath);
 
-      return false;
-    });
 
     // Todo: Use sort
-    let filePathsMd = walkSync(srcPath)
-      .filter((fileName) => (fileName !== this.configMd && fileName.match(MD_REGEXP)));
-
+    let filePathsMd = this.input.entries('', { globs: ["**/*.md"]})
+      .filter(({ relativePath }) => (relativePath !== this.configMd))
+      .map(file => file.relativePath);
     // For some reason, Styledown chokes if the md files comes before any
     // of the CSS files
     filePaths = filePaths.concat(filePathsMd);
 
     // If available, add configMd at the end of the list
-    if (this.configMd) {
-      let configPath = getPath(srcPath, this.configMd);
-      let configExists = checkFileExists(configPath);
-
-      if (configExists) {
-        filePaths = filePaths.concat(this.configMd);
-      }
+    if (this.input.existsSync(this.configMd)) {
+      filePaths = filePaths.concat(this.configMd);
     }
-
     try {
-
       return filePaths.map((filePath) => ({
-        data: fs.readFileSync(getPath(srcPath, filePath), FS_OPTIONS),
+        data: this.input.readFileSync(filePath, FS_OPTIONS),
         name: filePath
       }));
     } catch(err) {

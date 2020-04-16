@@ -1,6 +1,6 @@
 {
   "name": "broccoli-styledown",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Broccoli plugin for creating styledown html from css markup",
   "main": "index.js",
   "dependencies": {
@@ -25,6 +25,5 @@
     "styledown",
     "styleguide"
   ],
-  "author": "Kelly Miyashiro <miyashiro.kelly@gmail.com>",
   "license": "MIT"
 }

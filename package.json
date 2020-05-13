@@ -1,11 +1,11 @@
 {
   "name": "broccoli-styledown",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Broccoli plugin for creating styledown html from css markup",
   "main": "index.js",
   "dependencies": {
     "fs-tree-diff": "^2.0.1",
-    "styledown": "github:peopledoc/styledown.git#v2.0.1",
+    "styledown": "github:peopledoc/styledown.git#v2.0.2",
     "walk-sync": "^2.0.0",
     "broccoli-plugin": "4.0.2"
   },

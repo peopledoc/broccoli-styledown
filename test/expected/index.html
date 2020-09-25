@@ -1,38 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="sg">
+  <head>
+    <meta charset="utf-8" >
+    <title>Styledown</title>
+    <link rel="stylesheet" href="./styledown.css" >
+  </head>
+  <body class="sg">
+    <h1>Awesome Styleguide</h1>
+    <div>
+      <section class="sg-block sg-section-header">
+        <div class="sg-text">
+          <h3 id="header" class="sg">Header</h3>
+          <p class="sg">Example description</p>
+        </div>
+        <div class="sg-example">
+          <div class="sg-canvas"><header class="Header">I am a header</header></div>
+          <pre
+            class="sg-code"
+          ><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;Header&quot;</span>&gt;</span>I am a header<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
+</pre>
+        </div>
+      </section>
 
-<head>
-  <meta charset="utf-8">
-  <title>Styledown</title>
-  <link rel="stylesheet" href="./styledown.css">
-</head>
+      <section class="sg-block sg-section-zone">
+        <h3 id="zone" class="sg">Zone</h3>
+        <p class="sg">
+          <code class="sg">.Zone</code>
+          is for zones
+        </p>
+      </section>
 
-<body class="sg">
-  <h1>Awesome Styleguide</h1>
-  <div>
-    <section class="sg-block sg-section-header">
-      <div class="sg-text">
-        <h3 id="header" class="sg">Header</h3>
-        <p class="sg">Example description</p>
-      </div>
-      <div class="sg-example">
-        <div class="sg-canvas">
-          <header class="Header">I am a header</header>
-        </div><pre class="sg-code"><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;Header&quot;</span>&gt;</span>I am a header<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span></pre>
-      </div>
-    </section>
-
-    <section class="sg-block sg-section-zone">
-      <h3 id="zone" class="sg">Zone</h3>
-      <p class="sg"><code class="sg">.Zone</code> is for zones</p>
-    </section>
-
-    <section class="sg-block sg-section-link">
-      <h3 id="link" class="sg">Link</h3>
-      <p class="sg"><code class="sg">.Link</code> is for links</p>
-    </section>
-
-  </div>
-</body>
-
+      <section class="sg-block sg-section-link">
+        <h3 id="link" class="sg">Link</h3>
+        <p class="sg">
+          <code class="sg">.Link</code>
+          is for links
+        </p>
+      </section>
+    </div>
+  </body>
 </html>

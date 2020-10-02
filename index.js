@@ -1,4 +1,4 @@
-const Styledown = require('styledown');
+const Styledown = require('@peopledoc/styledown');
 const Plugin = require('broccoli-plugin');
 const walkSync = require('walk-sync');
 const FSTree = require('fs-tree-diff');

@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "fs-tree-diff": "^2.0.1",
-    "styledown": "github:peopledoc/styledown.git#v2.1.0",
+    "@peopledoc/styledown": "^3.0.0",
     "walk-sync": "^2.0.0",
     "broccoli-plugin": "4.0.2"
   },

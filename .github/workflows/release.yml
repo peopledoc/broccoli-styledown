@@ -1,0 +1,22 @@
+name: Create a package
+on:
+  release:
+    types: ['created']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 10 and setup registry
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+          registry-url: https://npm.pkg.github.com/
+      - name: Install deps
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

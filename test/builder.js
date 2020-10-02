@@ -1,8 +1,8 @@
-var broccoli = require('broccoli');
-var StyledownWriter = require('..');
+let broccoli = require('broccoli')
+let StyledownWriter = require('..')
 
 module.exports = function(inputTrees, options) {
-  var styledownCompiler = new StyledownWriter(inputTrees, options);
+  let styledownCompiler = new StyledownWriter(inputTrees, options)
 
-  return new broccoli.Builder(styledownCompiler);
-};
+  return new broccoli.Builder(styledownCompiler)
+}

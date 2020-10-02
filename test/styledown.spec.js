@@ -1,10 +1,10 @@
-var assert = require('assert');
-var path = require('path');
-var builder = require('./builder');
-var fs = require('fs');
+let assert = require('assert')
+let path = require('path')
+let builder = require('./builder')
+let fs = require('fs')
 
 function getPath(fileName) {
-  return path.join(__dirname, fileName);
+  return path.join(__dirname, fileName)
 }
 
 describe('Styledown compiler', function() {
@@ -13,25 +13,25 @@ describe('Styledown compiler', function() {
     let tree = builder(['./test/fixtures/valid'], {
       configMd: 'config.md',
       destFile: 'index.html'
-    });
+    })
 
     await tree.build()
-    let expected = fs.readFileSync(getPath('expected/index.html'), { encoding: 'utf8' });
-    let result = fs.readFileSync(tree.outputPath + '/index.html', { encoding: 'utf8' });
+    let expected = fs.readFileSync(getPath('expected/index.html'), { encoding: 'utf8' })
+    let result = fs.readFileSync(`${tree.outputPath  }/index.html`, { encoding: 'utf8' })
   
 
-    assert.ok(expected, 'expected exists');
-    assert.ok(result, 'generated exists');
-    assert.equal(expected.trim(), result.trim(), 'matches expected');
-  });
+    assert.ok(expected, 'expected exists')
+    assert.ok(result, 'generated exists')
+    assert.equal(expected.trim(), result.trim(), 'matches expected')
+  })
 
   it('Build should fail when passing errored files to Styledown', function() {
 
     let tree = builder(['./test/fixtures/invalid'], {
       configMd: 'config.md',
       destFile: 'index.html'
-    });
-    assert.rejects(tree.build());
+    })
+    assert.rejects(tree.build())
   })
 
   it('Provide buildError hook that is called on build error', function(done) {
@@ -42,9 +42,9 @@ describe('Styledown compiler', function() {
         assert.ok(true, 'onBuildError is called')
         assert.equal(infos.destFile, 'index.html')
         assert.ok(infos.inputPaths)
-        done();
+        done()
       }
-    });
+    })
     tree.build().catch(() => {})
   })
 
@@ -57,6 +57,6 @@ describe('Styledown compiler', function() {
         onBuildError: 'foo'
       }),
       new TypeError('Option onBuildError should be a function')
-    );
+    )
   })
-});
+})

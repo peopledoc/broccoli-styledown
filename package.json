@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "broccoli": "^3.2.0",
+    "eslint": "^7.10.0",
+    "eslint-config-peopledoc": "^2.0.0",
     "mocha": "^7.0.0"
   },
   "engines": {
@@ -18,7 +20,8 @@
   },
   "scripts": {
     "build": "rm -rf build && broccoli build build",
-    "test": "mocha test/*.spec.js --reporter spec"
+    "test": "mocha test/*.spec.js --reporter spec",
+    "lint:js": "eslint ."
   },
   "keywords": [
     "broccoli-plugin",

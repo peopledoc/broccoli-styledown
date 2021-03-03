@@ -4,7 +4,7 @@
   "description": "Broccoli plugin for creating styledown html from css markup",
   "main": "index.js",
   "dependencies": {
-    "@peopledoc/styledown": "^3.0.2",
+    "@peopledoc/styledown": "^4.0.0",
     "broccoli-plugin": "^4.0.3",
     "fs-tree-diff": "^2.0.1",
     "walk-sync": "^2.2.0"

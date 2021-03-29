@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "broccoli": "^3.5.1",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "eslint-config-peopledoc": "^2.0.0",
     "mocha": "^8.3.2"
   },

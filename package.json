@@ -10,7 +10,7 @@
     "walk-sync": "^2.2.0"
   },
   "devDependencies": {
-    "broccoli": "^3.5.1",
+    "broccoli": "^3.5.2",
     "eslint": "^7.25.0",
     "eslint-config-peopledoc": "^2.0.0",
     "mocha": "^8.3.2"

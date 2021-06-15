@@ -7,7 +7,7 @@
     "@peopledoc/styledown": "^4.1.0",
     "broccoli-plugin": "^4.0.7",
     "fs-tree-diff": "^2.0.1",
-    "walk-sync": "^2.2.0"
+    "walk-sync": "^3.0.0"
   },
   "devDependencies": {
     "broccoli": "^3.5.2",

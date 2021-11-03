@@ -8,6 +8,7 @@
   },
   "homepage": "https://github.com/peopledoc/broccoli-styledown",
   "repository": "https://github.com/peopledoc/broccoli-styledown",
+  "bugs": "https://github.com/peopledoc/broccoli-styledown/issues",
   "main": "index.js",
   "dependencies": {
     "@peopledoc/styledown": "^4.1.0",

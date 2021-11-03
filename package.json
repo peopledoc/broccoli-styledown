@@ -31,7 +31,11 @@
     "lint:js": "eslint ."
   },
   "keywords": [
+    "broccoli",
+    "broccoli-less-single",
     "broccoli-plugin",
+    "broccoli-styledown",
+    "plugin",
     "styledown",
     "styleguide"
   ],

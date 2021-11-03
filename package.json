@@ -2,6 +2,10 @@
   "name": "@peopledoc/broccoli-styledown",
   "version": "4.1.0",
   "description": "Broccoli plugin for creating styledown html from css markup",
+  "author": {
+    "name": "PeopleDoc",
+    "url": "https://github.com/peopledoc"
+  },
   "main": "index.js",
   "dependencies": {
     "@peopledoc/styledown": "^4.1.0",

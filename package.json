@@ -1,7 +1,8 @@
 {
   "name": "@peopledoc/broccoli-styledown",
-  "version": "4.1.0",
   "description": "Broccoli plugin for creating styledown html from css markup",
+  "version": "4.1.0",
+  "license": "MIT",
   "author": {
     "name": "PeopleDoc",
     "url": "https://github.com/peopledoc"
@@ -9,7 +10,21 @@
   "homepage": "https://github.com/peopledoc/broccoli-styledown",
   "repository": "https://github.com/peopledoc/broccoli-styledown",
   "bugs": "https://github.com/peopledoc/broccoli-styledown/issues",
+  "keywords": [
+    "broccoli",
+    "broccoli-less-single",
+    "broccoli-plugin",
+    "broccoli-styledown",
+    "plugin",
+    "styledown",
+    "styleguide"
+  ],
   "main": "index.js",
+  "scripts": {
+    "build": "rm -rf build && broccoli build build",
+    "test": "mocha test/*.spec.js --reporter spec",
+    "lint:js": "eslint ."
+  },
   "dependencies": {
     "@peopledoc/styledown": "^4.1.0",
     "broccoli-plugin": "^4.0.7",
@@ -24,20 +39,5 @@
   },
   "engines": {
     "node": ">=8"
-  },
-  "scripts": {
-    "build": "rm -rf build && broccoli build build",
-    "test": "mocha test/*.spec.js --reporter spec",
-    "lint:js": "eslint ."
-  },
-  "keywords": [
-    "broccoli",
-    "broccoli-less-single",
-    "broccoli-plugin",
-    "broccoli-styledown",
-    "plugin",
-    "styledown",
-    "styleguide"
-  ],
-  "license": "MIT"
+  }
 }

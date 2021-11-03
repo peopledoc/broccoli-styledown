@@ -6,6 +6,7 @@
     "name": "PeopleDoc",
     "url": "https://github.com/peopledoc"
   },
+  "homepage": "https://github.com/peopledoc/broccoli-styledown",
   "main": "index.js",
   "dependencies": {
     "@peopledoc/styledown": "^4.1.0",

@@ -35,6 +35,11 @@ npm install
 npm test
 ```
 
+## Contributors
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
+
 ## License
 
 MIT

@@ -38,6 +38,44 @@ npm test
 ## Contributors
 
 <!-- readme: contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/KamiKillertO">
+            <img src="https://avatars.githubusercontent.com/u/9579729?v=4" width="100;" alt="KamiKillertO"/>
+            <br />
+            <sub><b>KamiKillertO</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/kmiyashiro">
+            <img src="https://avatars.githubusercontent.com/u/71852?v=4" width="100;" alt="kmiyashiro"/>
+            <br />
+            <sub><b>kmiyashiro</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ryuran">
+            <img src="https://avatars.githubusercontent.com/u/1309340?v=4" width="100;" alt="ryuran"/>
+            <br />
+            <sub><b>ryuran</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/GreatWizard">
+            <img src="https://avatars.githubusercontent.com/u/1322081?v=4" width="100;" alt="GreatWizard"/>
+            <br />
+            <sub><b>GreatWizard</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/MrChocolatine">
+            <img src="https://avatars.githubusercontent.com/u/47531779?v=4" width="100;" alt="MrChocolatine"/>
+            <br />
+            <sub><b>MrChocolatine</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: contributors -end -->
 
 ## License

@@ -2,7 +2,7 @@
 
 Broccoli plugin for generating styleguide HTML with [@peopledoc/Styledown](https://github.com/peopledoc/styledown)
 
-ℹ️ This package is forked from [Styledown](https://github.com/styledown/styledown).
+ℹ️ This package is forked from [kmiyashiro/broccoli-styledown](https://github.com/kmiyashiro/broccoli-styledown).
 
 ## Installation
 

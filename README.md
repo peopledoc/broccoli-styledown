@@ -1,21 +1,28 @@
 # broccoli-styledown
 
-Broccoli plugin for generating styleguide HTML with [Styledown](https://github.com/styledown/styledown)
+Broccoli plugin for generating styleguide HTML with [@peopledoc/Styledown](https://github.com/peopledoc/styledown)
 
-
-This code is based heavily on
-[broccoli-less-single](https://github.com/gabrielgrant/broccoli-less-single)
+ℹ️ This package is forked from [Styledown](https://github.com/styledown/styledown).
 
 ## Installation
 
+Add the github registry in your `.npmrc` for @peopledoc scoped package:
+
+```
+# Points to Github NPM registry
+@peopledoc:registry=https://npm.pkg.github.com
+````
+
+Then you can install it:
+
 ```bash
-npm install --save-dev broccoli-styledown
+npm install --save-dev @peopledoc/broccoli-styledown
 ```
 
 ## Usage
 
 ```js
-var compileStyledown = require('broccoli-styledown');
+var compileStyledown = require('@peopledoc/broccoli-styledown');
 
 var outputTree = compileStyledown([inputTrees], options)
 ```

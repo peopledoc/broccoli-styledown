@@ -23,7 +23,7 @@ describe('Styledown compiler', function() {
     assert.ok(expected, 'expected exists')
     assert.ok(result, 'generated exists')
     assert.equal(expected.trim(), result.trim(), 'matches expected')
-  })
+  }).timeout(5000)
 
   it('Build should fail when passing errored files to Styledown', function() {
 

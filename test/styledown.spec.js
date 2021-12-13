@@ -7,9 +7,9 @@ function getPath(fileName) {
   return path.join(__dirname, fileName)
 }
 
-describe('Styledown compiler', function() {
+describe('Styledown compiler', function () {
 
-  it('should write styledown html', async function() {
+  it('should write styledown html', async function () {
     let tree = builder(['./test/fixtures/valid'], {
       configMd: 'config.md',
       destFile: 'index.html'
@@ -25,7 +25,7 @@ describe('Styledown compiler', function() {
     assert.equal(expected.trim(), result.trim(), 'matches expected')
   })
 
-  it('Build should fail when passing errored files to Styledown', function() {
+  it('Build should fail when passing errored files to Styledown', function () {
 
     let tree = builder(['./test/fixtures/invalid'], {
       configMd: 'config.md',
@@ -34,7 +34,7 @@ describe('Styledown compiler', function() {
     assert.rejects(tree.build())
   })
 
-  it('Provide buildError hook that is called on build error', function(done) {
+  it('Provide buildError hook that is called on build error', function (done) {
     let tree = builder(['./test/fixtures/invalid'], {
       configMd: 'config.md',
       destFile: 'index.html',
@@ -48,7 +48,7 @@ describe('Styledown compiler', function() {
     tree.build().catch(() => {})
   })
 
-  it('Throw an error when "onBuildError" option is not a function', function() {
+  it('Throw an error when "onBuildError" option is not a function', function () {
 
     assert.throws(
       () => builder(['./test/fixtures/valid'], {

@@ -9,7 +9,7 @@ const WHITELIST_GLOB_REGEXP = `**/*.{${EXTENSIONS.join(',')}}`
 
 
 class StyledownCompiler extends Plugin {
-  constructor (inputNode, options) {
+  constructor(inputNode, options) {
     options = options || {}
     options.persistentOutput = true
     options.needsCache = true

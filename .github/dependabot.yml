@@ -3,8 +3,13 @@
 
 version: 2
 
-updates:
+registries:
+  npm-github:
+    type: npm-registry
+    url: npm.pkg.github.com
+    token: ${{secrets.GH_REGISTRY_ACCESS_TOKEN}}
 
+updates:
   # Required options
   - package-ecosystem: npm
     directory: "/"

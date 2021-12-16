@@ -81,6 +81,13 @@ npm test
             <br />
             <sub><b>MrChocolatine</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/lifeart">
+            <img src="https://avatars.githubusercontent.com/u/1360552?v=4" width="100;" alt="lifeart"/>
+            <br />
+            <sub><b>lifeart</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: contributors -end -->

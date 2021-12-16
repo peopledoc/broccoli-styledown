@@ -12,6 +12,7 @@ registries:
 updates:
   # Required options
   - package-ecosystem: npm
+    registries: npm-github
     directory: "/"
     schedule:
       interval: weekly

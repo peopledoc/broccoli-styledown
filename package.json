@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "broccoli": "^3.5.2",
-    "eslint": "^8.5.0",
+    "eslint": "^8.6.0",
     "eslint-config-peopledoc": "^3.0.2",
     "mocha": "^9.1.3"
   },

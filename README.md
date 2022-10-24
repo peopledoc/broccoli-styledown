@@ -55,17 +55,17 @@ npm test
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/kmiyashiro">
-            <img src="https://avatars.githubusercontent.com/u/71852?v=4" width="100;" alt="kmiyashiro"/>
-            <br />
-            <sub><b>kmiyashiro</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/ryuran">
             <img src="https://avatars.githubusercontent.com/u/1309340?v=4" width="100;" alt="ryuran"/>
             <br />
             <sub><b>ryuran</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/kmiyashiro">
+            <img src="https://avatars.githubusercontent.com/u/71852?v=4" width="100;" alt="kmiyashiro"/>
+            <br />
+            <sub><b>kmiyashiro</b></sub>
         </a>
     </td>
     <td align="center">
